@@ -1,7 +1,7 @@
 from graphics import *
 from player import *
-from riddle import *
 from behavior import *
+
 class Game:
     def getGridSize(self):
         return {'x':16,'y':15}
@@ -75,31 +75,34 @@ class Game:
 
     def moveEast(self):
         self.move(1,0)
-        riddle(self.character,self.characterPoint,self.player)
         print(self.player.user,"HEALTH: ",self.player.healthscore,"KEYS",self.player.key)
 
     def moveNorth(self):
         self.move(0,-1)
-        riddle(self.character,self.characterPoint,self.player)
         print(self.player.user,"HEALTH: ",self.player.healthscore,"KEYS",self.player.key)
 
     def moveWest(self):
         self.move(-1,0)
-        riddle(self.character,self.characterPoint,self.player)
         print(self.player.user,"HEALTH: ",self.player.healthscore,"KEYS",self.player.key)
 
     def moveSouth(self):
         self.move(0,1)
-        riddle(self.character,self.characterPoint,self.player)
         print(self.player.user,"HEALTH: ",self.player.healthscore,"KEYS",self.player.key)
 
     def invalidDirection(self):
         print("You hit an immovable object. You do not move.")
 
+    def keyNotFound(self):
+        print("You look around, but cannot see any keys")
+
+    def keyFound(self):
+        self.player.giveKey()
+        print("You see a key. You pick it up")
+
     # GAMEPLAY
 
     def play(self):
-        print("Where would you like to go? Use n, e, s, w, :")
+        self.help()
         #This will be used later to end the game
         self.game = True
         behavior = Behavior(self)
@@ -118,4 +121,4 @@ class Game:
         self.play()
 
     def help(self):
-        print('Put help here')
+        print("Where would you like to go? Use north, east, south, west, get key")
